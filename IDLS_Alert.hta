@@ -1,0 +1,130 @@
+<html>
+<head>
+<hta:application 
+
+APPLICATIONNAME = "IDLS ALERT"
+
+ID = "IDLS ALERT"
+
+BORDERSTYLE = "Normal"
+
+CAPTION = "No"
+
+CONTEXTMENU = "No"
+
+INNERBORDER = "No"
+
+MAXIMIZEBUTTON  = "No"
+
+MINIMIZEBUTTON = "No"
+
+NAVIGABLE  = "No"
+
+SCROLL   = "No"
+
+SCROLLFLAT = "No"
+
+SELECTION = "No"
+
+SHOWINTASKBAR  = "No"
+
+SINGLEINSTANCE  = "Yes"
+
+SYSMENU   = "No"/>
+
+<STYLE>
+html, body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 87%;
+    line-height: 1.5em;
+    margin: 20;
+    padding: 0;
+}
+
+h1 {
+    color: #FF0000;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+}
+h4 {
+    color: #FF0000;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    text-align: center;
+}
+h2 {
+    color: #011563;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    
+}
+h3 {
+    color: #011563;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: right;
+    
+}
+h5 {
+    color: #FF0000;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-align: center;
+    
+}
+h6 {
+    color: #011563;
+    font-size: 0.8em;
+    font-style: italic;
+    text-transform: lowercase;
+    text-align: right;
+    
+}
+
+</STYLE>
+
+<script type='text/vbscript'>
+
+Sub Window_onload()
+Me.ResizeTo 600,700
+Me.MoveTo Screen.Width /2 - 300,Screen.Height / 2 - 300
+Me.SetTimeout "Me.Close()",60000
+End Sub
+</script>
+</head>
+<body scroll="no">
+
+<p align="center"><img src="http://teams.staffnet.ggc.scot.nhs.uk/teams/CorpSvc/HIT/ITInfra/Ops/TechSvc/AP/Important%20Pictures/_w/Greater_glasgow_logo_gif.jpg"/></p>
+<h5>*** IDLS UPDATE! ***</h5>
+<h2>A new package of IDLS application needs to be rolled out to all the IDLS users to resolve the latest printing issues with the application and also to run it on Windows 7.</h2>
+
+<h2>The update has been scheduled to take place on the following date:</h2>
+<h4>01/11/2012 (Thursday) at 4 PM</h4>
+
+<h2>Users are advised to give a </h2><h1>mandatory system restart at 4:05 PM </h1><h2>for the deployment/changes to take effect. Upon restart the old IDLS icon will disappear and the new IDLS icon will appear on the user's desktop.</h2>
+
+<h2>The new icon will look like</h2>
+<p align="center"><img src="http://teams.staffnet.ggc.scot.nhs.uk/teams/CorpSvc/HIT/ITInfra/Ops/TechSvc/AP/Important%20Pictures/ICONS/_w/IDLS%20Logo_jpg.jpg"/></p>
+<h3>NHSGGC HI&T DEPT</h3>
+<h6>[this message will auto close in <span id="timer"></span>secs]</h6>
+
+<script type="text/javascript">
+var count=59; // seconds
+
+var counter=setInterval(timer, 1000); 
+function timer()
+{
+  count=count-1;
+  if (count <= 0)
+  {
+     clearInterval(counter);
+     return;
+  }
+
+ document.getElementById("timer").innerHTML=count + " "; // 
+}
+</script>
+</body>
+</html>

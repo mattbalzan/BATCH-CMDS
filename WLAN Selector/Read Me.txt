@@ -1,0 +1,7 @@
+Ensure all contents of this folder are located in:
+
+c:\program files\WLAN
+
+Then use Launch_WiFi.bat to run the program.
+
+M.Balzan [18/12/2012]

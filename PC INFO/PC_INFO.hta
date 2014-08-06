@@ -1,0 +1,138 @@
+<!-- M. Balzan & A. Banerjee June 2013 -->
+<html>
+<head>
+<hta:application 
+APPLICATIONNAME = "PC INFO POP-UP"
+ID = "PC INFO POP-UP"
+BORDER = "thin"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON  = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE  = "No"
+SCROLL   = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR  = "No"
+SINGLEINSTANCE  = "Yes"
+SYSMENU   = "No"/>
+
+<STYLE>
+html, body {
+background color: #000
+    
+    font-size: 90%;
+    line-height: 0.1em;
+    margin: 10;
+    padding: 0;
+}
+
+h1 {font-family: Verdana;
+    color: #007cd1;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: left;
+    
+}
+h2 {font-family: Verdana;
+    color: #fff;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: left;
+    
+}
+h3 
+{font-family: Verdana;
+    color: #666;
+    font-size: 0.5em;
+    text-transform: uppercase;
+    text-align: left;
+    
+}
+</STYLE>
+
+<script language="VBScript">
+
+Sub StartUp()
+Resize()
+Info()
+IP()
+End Sub
+
+Sub Resize()
+x=0
+y=0
+Me.ResizeTo 250,250
+Me.MoveTo x,y
+Me.SetTimeout "Me.Close()",30000
+End Sub
+
+Sub Info()
+Dim objWMISvc,colItems,wshShell
+Set objWMISvc = GetObject("winmgmts:\\.\root\cimv2")
+Set colItems = objWMISvc.ExecQuery("Select * from Win32_ComputerSystem", , 48)
+Set wshShell = CreateObject("WScript.Shell")
+strCOMPUTERNAME = wshShell.ExpandEnvironmentStrings("%COMPUTERNAME%")
+strUSERNAME = wshShell.ExpandEnvironmentStrings("%USERNAME%")
+strUSERDOMAIN = wshShell.ExpandEnvironmentStrings("%USERDOMAIN%")
+iUSERNAME.InnerHTML = "<h2>USER: </h2><h1>" & strUSERNAME
+iDOMAIN.InnerHTML = "<h2>DOMAIN: </h2><h1>" & strUSERDOMAIN
+iCOMPUTERNAME.InnerHTML = "<h2>ASSET TAG: </h2><h1>" & strCOMPUTERNAME
+For Each objItem in colItems
+    strComputerDomain = objItem.Domain
+    If objItem.PartOfDomain Then
+        iDOMAIN.InnerHTML = "<h2>DOMAIN: </h2><h1>" & strComputerDomain
+    Else
+        iDOMAIN.InnerHTML = "<h2>WORKGROUP: </h2><h1>" & strComputerDomain
+    End If
+Next
+End Sub
+
+Sub IP()
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:" _
+    & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+
+Set IPConfigSet = objWMIService.ExecQuery _
+    ("Select * from Win32_NetworkAdapterConfiguration Where IPEnabled=TRUE")
+ 
+For Each IPConfig in IPConfigSet
+    If Not IsNull(IPConfig.IPAddress) Then 
+        For i=LBound(IPConfig.IPAddress) to UBound(IPConfig.IPAddress)
+          iIPADDRESS.InnerHTML = IPConfig.IPAddress(0)
+        Next
+    End If
+Next
+End Sub
+
+
+</script>
+</head>
+<body onLoad="StartUp" scroll="no">
+
+<span id="iUSERNAME"></span></h1>
+<span id="iDOMAIN"></span></h1>
+<span id="iCOMPUTERNAME"></span></h1>
+<h2>IP ADDRESS: </h2><h1><span id="iIPADDRESS"></span></h1>
+<h3>[auto close in <span id="timer"></span>secs]</h3>
+
+<script type="text/javascript">
+var count=30; // seconds
+
+var counter=setInterval(timer, 1000); 
+function timer()
+{
+  count=count-1;
+  if (count <= 0)
+  {
+     clearInterval(counter);
+     return;
+  }
+
+ document.getElementById("timer").innerHTML=count + " "; // 
+}
+</script>
+</body>
+</html>

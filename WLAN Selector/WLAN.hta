@@ -1,0 +1,101 @@
+<html>
+<head>
+<hta:application 
+
+APPLICATIONNAME = "WLAN NETWORK SELECTION"
+ID = "WLAN NETWORK SELECTION"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON  = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE  = "Yes"
+SCROLL   = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR  = "No"
+SINGLEINSTANCE  = "Yes"
+SYSMENU   = "No"/>
+
+<STYLE>
+html, body {
+	background-color: #333333;
+    font-family: calibri;
+    font-size: 87%;
+    line-height: 1em;
+    margin: 10;
+    padding: 0;
+}
+list {
+    color: #000000;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+}
+h2 {
+    color: #FFFFFF;
+    font-size: 1.2em;
+    text-transform: lowercase;
+    text-align: center;
+    
+}
+h5 {
+    color: #FFA800;
+    font-size: 1.2em;
+    text-align: center;
+    
+}
+
+</STYLE>
+
+<script type='text/vbscript'>
+Sub Window_onLoad()
+Me.ResizeTo 400,700
+Me.MoveTo Screen.Width /2 - 200,Screen.Height / 2 - 350
+//Call Delete_Wlan_list()
+Call Wifi_Scan()
+Call display()
+End Sub
+
+</script>
+
+<script language="VBScript">
+
+'Export available wi-fi networks
+Sub Wifi_Scan()
+Dim strCommand
+strCommand = "%systemroot%\WLAN\wlan_list.bat" 
+Set WSHShell = CreateObject("WScript.Shell")
+WSHShell.Run "%comspec% cmd /c " & strCommand 
+End Sub
+</script>
+
+<script type="text/javascript">
+var filePath = "%systemroot\temp\wlan.txt"
+xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET",filePath,false);
+xmlhttp.send(null);
+var fileContent = xmlhttp.responseText;
+var fileArray = fileContent.split('\n')
+//Now do whatever you need with the array
+
+document.getElementById("myWIFI").innerText = fileArray;}
+</script>
+
+</head>
+
+<body scroll="no">
+
+<p align="center"><img src=".\nhs_transp.png"/></p>
+<h5>WLAN Wi-Fi Network Selector</h5>
+<h2>Choose your Wi-Fi Network from the list below</h2>
+
+
+<div id="myWIFI"></div>
+
+<p align="center"><form>
+<input type="button" style="background-color:FFA800;color:000000;border-color=FFA800" value="Close" onClick="window.close()">
+</form></p>
+</body>
+</html>
