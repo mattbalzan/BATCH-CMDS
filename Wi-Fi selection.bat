@@ -1,4 +1,5 @@
-@ECHO OFF
+
+:Connect@ECHO OFF
 :Main
 color 17
 Echo.
@@ -39,6 +40,7 @@ GOTO :Connect
 SET file_name=%1
 GOTO :EOF
 
+:Connect
 netsh wlan connect name=%file_name%
 
 pause
